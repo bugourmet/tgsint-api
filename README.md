@@ -4,7 +4,6 @@ REST API for [tgsint bot](https://github.com/runtimeterrorist/tgsint) written wi
 
 Serves [facebook leak](https://www.businessinsider.com/stolen-data-of-533-million-facebook-users-leaked-online-2021-4) data hosted on your database.
 
-
 ## Installation
 
 1) Run `npm install` to install required dependencies
@@ -12,6 +11,7 @@ Serves [facebook leak](https://www.businessinsider.com/stolen-data-of-533-millio
 
 
 ## Usage
+
 Start the server: `npm start`
 
 The [bot](https://github.com/runtimeterrorist/tgsint) connects to it and queries data with /find command.
