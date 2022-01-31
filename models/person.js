@@ -2,11 +2,11 @@ const mongoose = require('mongoose');
 
 const PersonSchema = mongoose.Schema({
     phonenum: {
-        type: Number,
+        type: String,
         required: true
     },
     fbid: {
-        type: Number,
+        type: String,
         required: true
     },
     name: {
