@@ -6,7 +6,7 @@ const router = express.Router();
 
 //submit the user to the DB
 router.post('/',async (req,res) => {
-        const post = new Person({
+        const user = new Person({
         phonenum: req.body.phonenum,
         fbid: req.body.fbid,
         name: req.body.name,
@@ -16,7 +16,7 @@ router.post('/',async (req,res) => {
     });
 
     try{
-        const savedPerson = await post.save();
+        const savedPerson = await user.save();
         res.json(savedPerson);
     } catch (err) {
         return res.status(500).json({ message: err.message });
@@ -27,12 +27,17 @@ router.post('/',async (req,res) => {
 //find a specific user
 router.get('/:num', async (req,res) => {
     try{
-        const post = await Person.find({'phonenum': req.params.num});
-        res.json(post);
+        const user = await Person.find({'phonenum': req.params.num});
+        if(user === undefined || user.length == 0){
+            return res.status(200).json({ error: "User not found!" });
+        }else{
+            res.json(user);
+        }
+
+        
     }catch(err){
         return res.status(500).json({ message: err.message });
     }
-
 
 })
 
