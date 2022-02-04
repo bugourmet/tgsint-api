@@ -3,8 +3,7 @@ const Person = require('../models/person');
 const router = express.Router();
 
 
-
-//submit the user to the DB
+//save the user to the DB
 router.post('/',async (req,res) => {
         const user = new Person({
         phonenum: req.body.phonenum,
@@ -25,7 +24,7 @@ router.post('/',async (req,res) => {
 
 
 //find a specific user
-router.get('/:num', async (req,res) => {
+router.get('/phone/:num', async (req,res) => {
     try{
         const user = await Person.find({'phonenum': req.params.num});
         if(user === undefined || user.length == 0){
@@ -40,6 +39,25 @@ router.get('/:num', async (req,res) => {
     }
 
 })
+
+
+//find a specific user by name and surname
+router.get('/:name/:surname', async (req,res) => {
+    try{
+        const user = await Person.find({'name': req.params.name,'surname':req.params.surname});
+        if(user === undefined || user.length == 0){
+            return res.status(200).json({ error: "User not found!" });
+        }else{
+            res.json(user);
+        }
+
+        
+    }catch(err){
+        return res.status(500).json({ message: err.message });
+    }
+
+})
+
 
 module.exports = router;
 

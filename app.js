@@ -11,7 +11,8 @@ app.use(bodyParser.json());
 
 //import routes
 const postsRoute = require('./routes/post');
-app.use('/post',postsRoute)
+app.use('/api',postsRoute);
+app.use('/api/phone/',postsRoute);
 
 
 app.get('/',(req,res) => {
@@ -19,6 +20,15 @@ app.get('/',(req,res) => {
     res.json({message:'meow'});
 });
 
+app.get('/api',(req,res) => {
+    //console.log(req.headers)
+    res.json({message:'meow'});
+});
+
+app.get('/api/phone',(req,res) => {
+    //console.log(req.headers)
+    res.json({message:'meow'});
+});
 
 //connect to the DB
 mongoose.connect(process.env.DBCONNECTIONURL, () =>{
