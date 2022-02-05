@@ -1,6 +1,6 @@
 # tgsint-api
 
-REST API for [tgsint bot](https://github.com/runtimeterrorist/tgsint) written with help of Node,Express and MongoDB.
+REST API for [tgsint bot](https://github.com/runtimeterrorist/tgsint) written with the help of Node,Express and MongoDB.
 
 Serves [facebook leak](https://www.businessinsider.com/stolen-data-of-533-million-facebook-users-leaked-online-2021-4) data hosted on your database.
 

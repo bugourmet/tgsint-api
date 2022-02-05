@@ -44,7 +44,7 @@ router.get('/phone/:num', async (req,res) => {
 //find a specific user by name and surname
 router.get('/:name/:surname', async (req,res) => {
     try{
-        const user = await Person.find({'name': req.params.name,'surname':req.params.surname});
+        const user = await Person.find({'name': { $regex: req.params.name,'$options' : 'i'},'surname':{ $regex: req.params.surname,'$options' : 'i'}}); //case insensitive search w/ regex
         if(user === undefined || user.length == 0){
             return res.status(200).json({ error: "User not found!" });
         }else{
