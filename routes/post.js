@@ -23,28 +23,29 @@ router.post('/',async (req,res) => {
 });
 
 
-//find a specific user
-router.get('/phone/:num', async (req,res) => {
+//find a specific user by phone number
+router.get('/phone/', async (req,res) => {
     try{
-        const user = await Person.find({'phonenum': req.params.num});
-        if(user === undefined || user.length == 0){
+        const userdata = await Person.find({'phonenum': req.query.number});
+        if(userdata === undefined || userdata.length == 0){
             return res.status(200).json({ error: "User not found!" });
         }else{
-            res.json(user);
+            res.json(userdata);
         }
 
         
     }catch(err){
-        return res.status(500).json({ message: err.message });
+        //console.log(err)
+        return res.status(500).json({ message: "" });
     }
 
 })
 
 
 //find a specific user by name and surname
-router.get('/:name/:surname', async (req,res) => {
+router.get('/find/', async (req,res) => {
     try{
-        const user = await Person.find({'name': { $regex: req.params.name,'$options' : 'i'},'surname':{ $regex: req.params.surname,'$options' : 'i'}}); //case insensitive search w/ regex
+        const user = await Person.find({'name': { $regex: req.query.name,'$options' : 'i'},'surname':{ $regex: req.query.surname,'$options' : 'i'}}); //case insensitive search w/ regex
         if(user === undefined || user.length == 0){
             return res.status(200).json({ error: "User not found!" });
         }else{
@@ -53,7 +54,8 @@ router.get('/:name/:surname', async (req,res) => {
 
         
     }catch(err){
-        return res.status(500).json({ message: err.message });
+        //console.log(err)
+        return res.status(500).json({ message: "" });
     }
 
 })
