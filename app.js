@@ -3,38 +3,40 @@ const app = express();
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const cors = require('cors');
+const helmet = require('helmet');
+const morgan = require('morgan');
 require('dotenv/config')
 
 //middleware
 app.use(cors());
 app.use(bodyParser.json());
+app.use(helmet());
+app.use(morgan('combined'));
 
 //import routes
-const postsRoute = require('./routes/post');
-app.use('/api',postsRoute);
-app.use('/api/phone/',postsRoute);
-
+const apiroute = require('./routes/api');
+app.use('/api',apiroute);
+app.use('/api/phone/',apiroute);
+app.use('/api/find/',apiroute);
 
 app.get('/',(req,res) => {
-    //console.log(req.headers)
     res.json({message:'meow'});
 });
 
 app.get('/api',(req,res) => {
-    //console.log(req.headers)
     res.json({message:'meow'});
 });
 
-app.get('/api/phone',(req,res) => {
-    //console.log(req.headers)
-    res.json({message:'meow'});
-});
 
 //connect to the DB
 mongoose.connect(process.env.DBCONNECTIONURL, () =>{
-    console.log('Connected to the database!')
-});
+    console.log('Connected to the database!');
+})
+.catch(error => console.log(error));
+;
 
 
-//listen to the server
-app.listen('3000');
+app.listen(process.env.PORT, function(err){
+    if (err) console.log("Error in server setup");
+    console.log('Listening on port: ' + process.env.PORT);
+})

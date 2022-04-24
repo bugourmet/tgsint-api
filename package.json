@@ -13,7 +13,11 @@
     "cors": "^2.8.5",
     "dotenv": "^13.0.0",
     "express": "^4.17.2",
+    "helmet": "^5.0.2",
     "mongoose": "^6.1.6",
-    "nodemon": "^2.0.15"
+    "morgan": "^1.10.0",
+    "node-nmap": "^4.0.0",
+    "nodemon": "^2.0.15",
+    "whoiser": "^1.13.1"
   }
 }
