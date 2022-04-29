@@ -8,6 +8,8 @@ Serves:
 - whois api
 - nmap api
 
+*subdomain enumeration is done trough [nmap hostmap-crtsh script](https://nmap.org/nsedoc/scripts/hostmap-crtsh.html).
+
 [ ! ] Note:
 
 [Facebook data leak](https://www.businessinsider.com/stolen-data-of-533-million-facebook-users-leaked-online-2021-4) is used for phone/person lookup.
