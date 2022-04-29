@@ -5,10 +5,8 @@ REST API for [tgsint bot](https://github.com/runtimeterrorist/tgsint) written wi
 Serves: 
 - phone lookup api
 - person lookup api
-- nmap quick scan api 
-- nmap custom scan api
 - whois api
-
+- nmap api
 
 [ ! ] Note:
 
@@ -19,14 +17,15 @@ To populate your mongoDB database check [this repo.](https://github.com/runtimet
 ## Installation
 
 1) Run `npm install` to install required dependencies
-2) Edit the .env file and add your mongodb connection url
+2) Install nmap to your local machine
+3) Edit the .env file and add your mongodb connection url
 
 
 ## Usage
 
 Start the server: `npm start`
 
-The [bot](https://github.com/runtimeterrorist/tgsint)  queries data from this server.
+The [bot](https://github.com/runtimeterrorist/tgsint-bot)  queries data from this server.
 
 ## Contributing
 Pull requests are welcome.

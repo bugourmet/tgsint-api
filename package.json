@@ -16,8 +16,8 @@
     "helmet": "^5.0.2",
     "mongoose": "^6.1.6",
     "morgan": "^1.10.0",
-    "node-nmap": "^4.0.0",
     "nodemon": "^2.0.15",
+    "request": "^2.88.2",
     "whoiser": "^1.13.1"
   }
 }

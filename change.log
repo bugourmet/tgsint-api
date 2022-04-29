@@ -1,0 +1,4 @@
+04/29/2022
+
+- removed quick nmap scan
+- replaced node-nmap package with custom nmap commands

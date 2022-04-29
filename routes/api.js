@@ -1,8 +1,10 @@
 const express = require('express');
 const Person = require('../models/person');
 const router = express.Router();
-const nmap = require('node-nmap');
 const whois = require('whoiser')
+var request = require('request');
+const execFile = require('child_process').execFile;
+
 
 //save the user to the DB
 router.post('/',async (req,res) => {
@@ -69,69 +71,6 @@ router.get('/find/', async (req,res) => {
 
 })
 
-
-// quick nmap scan
-router.get('/qscan/', async (req,res) => {
-    try{
-        var target = req.query.target;
-        if(target.length == 0){
-            return res.status(200).json({ error: "Check target format!" });
-        }else{
-            let scan = new nmap.QuickScan(target);
-
-            scan.on('complete', function(data){
-                return res.status(200).json(data);
-              });
-              
-              scan.on('error', function(error){
-                console.log(error);
-                return res.status(200).json({ error: error });
-              });
-              
-              scan.startScan();
-
-        }
-        
-    }catch(err){
-        //console.log(err)
-        return res.status(500).json({ message: err });
-    }
-
-})
-
-
-// scan with options | works but requires further testing and swapping with queuedscans
-router.get('/scan/', async (req,res) => {
-    try{
-        var target = req.query.target;
-        var option = req.query.option;
-        console.log(option);
-        if(target.length == 0){
-            return res.status(200).json({ error: "Check target format!" });
-        }else{
-            let scan = new nmap.NmapScan(target,option);
-            scan.on('complete', function(data){
-                //var time = scan.scanTime;
-                //console.log("total scan time(ms): " + time);
-                return res.status(200).json(data);
-              });
-              
-              scan.on('error', function(error){
-                console.log(error);
-                return res.status(200).json({ error: error });
-              });
-              
-              scan.startScan();
-
-        }
-        
-    }catch(err){
-        //console.log(err)
-        return res.status(500).json({ message: "" });
-    }
-
-})
-
 router.get('/whois/', async (req,res) => {
     try{
         var domain = req.query.domain;
@@ -145,13 +84,106 @@ router.get('/whois/', async (req,res) => {
 })
 
 
+router.get('/carlookup/', async (req,res) => {
+    try{
+        var plates = req.query.plates;
+        var clientServerOptions = {
+            uri: 'https://api.laqo.hr/webshop/ace/api/v1/car/details',
+            body: JSON.stringify({ plateNumber: plates }),
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }
+        request(clientServerOptions, function (error, response) {
+            if (error) {
+                res.status(404).json({message: error});
+            };
+        
+            if (!error) {
+                if(response.body.includes("Vehicle Details Not Found")){
+                    try{
+                        return res.status(404).send(JSON.parse(response.body));
+                    }catch(err){
+                        return res.status(500).json({ message: "server error" }); 
+                    }
+                    
+                }else{
+                    try{
+                        return res.status(200).send(JSON.parse(response.body));
+                    }catch(err){
+                        return res.status(500).json({ message: "server error" }); 
+                    }
+                }
+            };
+        
+        });
+    }catch(err){
+        //console.log(err)
+        return res.status(500).json({ message: err });
+    }
+
+})
+
+router.get('/nmap', (req, res) => {
+    var target = req.query.target;
+    var option = req.query.option;
+    var command = `nmap`;
+    var args = [];
+
+    if(target.length == 0){
+        res.status(500).json({message : "Target not specified"});
+    }else{
+        switch(option) {
+            case "1":  
+                // quicktraceroute
+                args = ["-sn","--traceroute", target];
+                break;
+            case "2":  
+                // intense_scan
+                args = ["-T4","-A","-v", target];
+                break;
+            case "3":
+                // intense_scan_udp
+                args = ["-sS","-sU","-T4","-A","-v", target];
+                break;
+            case "4":
+                // intense_scan_alltcp
+                args = ["p","1-65535","-T4","-A","-v", target];
+                break;
+            case "5":
+                // intense_scan_no_ping
+                args = ["-T4","-A","-v","-Pn", target];
+                break;
+            case "6":
+                // pingscan
+                args = ["-sn", target];
+                break;    
+            case "7":
+                // quickscan
+                args = ["-T4","-F", target];
+                break;
+            case "8":
+                // quickscan_plus
+                args =  ["-sV","-T4","-O","-F","--version-light", target];
+                break;
+            case "9":
+                // subdomain scan via crt-sh
+                args = ["-sn","--script","hostmap-crtsh", target];
+                break;
+            default:
+                //ping scan
+                args = ["-sn",target];
+        }
+
+    execFile(command, args, (err, output) => {
+        if (err) {
+          res.status(500).json({message:err});
+        }
+          res.status(200).json({result:output});
+      });
+    }
+  });
+
+
 module.exports = router;
-
-
-
-
-//TODO
-// - nmap queued scans
-// - ?nmap package improvements
-// - subdomains finder api
-// - ?geoip api
