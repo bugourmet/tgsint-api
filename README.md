@@ -30,6 +30,7 @@ Start the server: `npm start`
 The [bot](https://github.com/runtimeterrorist/tgsint-bot)  queries data from this server.
 
 ## Contributing
+
 Pull requests are welcome.
 If you have a suggestion open an issue with the tag "enhancement".  
 
@@ -37,5 +38,6 @@ If you have a suggestion open an issue with the tag "enhancement".
 [MIT](https://choosealicense.com/licenses/mit/)
 
 ## Legal disclaimer:
+
 Developers assume no liability and are not responsible for any misuse or damage caused by this program.
 This program is for educational purposes.
