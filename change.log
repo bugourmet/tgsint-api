@@ -2,3 +2,7 @@
 
 - removed quick nmap scan
 - replaced node-nmap package with custom nmap commands
+
+5/13/2022
+
+- major server rework and improvements

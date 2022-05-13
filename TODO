@@ -1,0 +1,4 @@
+- improve error handling & validation
+- implement data caching for performance improvements
+- NMAP improvements & more commands
+- person PATCH (edit person data)
