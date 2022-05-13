@@ -1,13 +1,13 @@
 const axios = require('axios')
 
 const hrCheck = (plates) =>{
-try {
-    result = axios.post('https://api.laqo.hr/webshop/ace/api/v1/car/details', {plateNumber: plates})
-    return result
-} catch (error) {
-  throw error;
-}
-};
+  try {
+      result = axios.post('https://api.laqo.hr/webshop/ace/api/v1/car/details', {plateNumber: plates})
+      return result;
+  } catch (error) {
+    throw error;
+  }
+  };
 
 
 const bihCheck = (plates) => {
