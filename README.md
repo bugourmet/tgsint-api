@@ -1,6 +1,6 @@
 # tgsint-api
 
-REST API for [tgsint bot](https://github.com/runtimeterrorist/tgsint) written with the help of Node,Express and MongoDB.
+REST API for [tgsint bot](https://github.com/runtimeterrorist/tgsint-bot) written with the help of Node,Express and MongoDB.
 
 Serves: 
 - person lookup api (phone lookup or lookup by name and surname)

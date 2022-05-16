@@ -1,5 +1,6 @@
 const PersonService = require("../services/PersonService");
 
+
 const findByName = (req, res) => {
   try {
     const name = req.query.name;
@@ -38,7 +39,7 @@ const findByPhone = (req, res) => {
         status: "FAILED",
         data: {
           error:
-            "One of the following keys is missing or is empty in request : 'number'",
+            "'number' key is missing or is empty in the request .",
         },
       });
     }else{
@@ -110,7 +111,7 @@ const deletePerson = (req, res) => {
         status: "FAILED",
         data: {
           error:
-            "One of the following keys is missing or is empty in request : 'id'",
+          "'id' key is missing or is empty in the request .",
         },
       });
     }else{

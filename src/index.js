@@ -1,4 +1,3 @@
-// In src/index.js
 const express = require("express");
 const mongoose = require('mongoose');
 const cors = require('cors');
@@ -31,7 +30,8 @@ mongoose.connect(process.env.MONGO_URI, () =>{
 })
 .catch(error => console.log(error));
 
+
 app.listen(process.env.PORT, function(err){
-    if (err) console.log("Error in server setup");
+    if (err) console.log(err);
     console.log('Listening on port: ' + process.env.PORT);
 })
