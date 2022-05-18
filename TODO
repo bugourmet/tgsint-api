@@ -3,3 +3,4 @@
 - NMAP improvements & more commands
 - person PATCH (edit person data)
 - subdomains scanner (use certsh nmap function)
+- implement api rate limiting (429)

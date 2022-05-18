@@ -1,41 +1,43 @@
 const Person = require('../models/Person.js');
 
-const getByPhone = (number) =>{
-try {
-  const userdata = Person.find({'phonenum': number});
-  return userdata;
-} catch (error) {
-  throw error;
-}
-};
-
-const getByName = (name,surname) => {
+async function getByPhone(number) {
   try {
-    const userdata = Person.find({'name': { $regex: name,'$options' : 'i'},'surname':{ $regex: surname,'$options' : 'i'}});
+    const userdata = await Person.find({ phonenum: number });
     return userdata;
   } catch (error) {
     throw error;
   }
-};
+}
 
-const addOnePerson = (data) => {
+async function getByName(name, surname) {
   try {
-    const newPerson = Person(data).save()
+    const userdata = await Person.find({
+      name: { $regex: name, $options: 'i' },
+      surname: { $regex: surname, $options: 'i' },
+    });
+    return userdata;
+  } catch (error) {
+    throw error;
+  }
+}
+
+async function addOnePerson(data) {
+  try {
+    const newPerson = await Person(data).save();
     return newPerson;
   } catch (error) {
     throw error;
   }
-};
+}
 
-const deleteOnePerson = (personID) => {
+async function deleteOnePerson(personID) {
   try {
-    const DeletedPerson = Person.findByIdAndDelete(personID)
+    const DeletedPerson = await Person.findByIdAndDelete(personID);
     return DeletedPerson;
   } catch (error) {
     throw error;
   }
-};
-
+}
 
 module.exports = {
   getByName,
