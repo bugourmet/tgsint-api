@@ -12,11 +12,11 @@ const findByName = (req, res) => {
         },
       });
     } else {
-      PersonService.getByName(name, surname).then((userdata) => {
-        if (userdata.length == 0 || userdata === undefined) {
+      PersonService.getByName(name, surname).then((result) => {
+        if (result.length == 0 || result === undefined) {
           res.status(201).send({ status: 'FAILED', data: 'User not found!' });
         } else {
-          res.status(201).send({ status: 'OK', data: userdata });
+          res.status(201).send({ status: 'OK', data: result });
         }
       });
     }
@@ -38,11 +38,11 @@ const findByPhone = (req, res) => {
         },
       });
     } else {
-      PersonService.getByPhone(phonenumber).then((userdata) => {
-        if (userdata.length == 0 || userdata === undefined) {
+      PersonService.getByPhone(phonenumber).then((result) => {
+        if (result.length == 0 || result === undefined) {
           res.status(201).send({ status: 'FAILED', data: 'User not found!' });
         } else {
-          res.status(201).send({ status: 'OK', data: userdata });
+          res.status(201).send({ status: 'OK', data: result });
         }
       });
     }
@@ -81,15 +81,15 @@ const addPerson = (req, res) => {
   };
 
   try {
-    PersonService.addOnePerson(personData).then((userdata) => {
-      if (userdata === null || userdata === undefined) {
+    PersonService.addOnePerson(personData).then((result) => {
+      if (result === null || result === undefined) {
         res
           .status(201)
           .send({ status: 'FAILED', data: 'Could not add a new user!' });
       } else {
         res.status(201).send({
           status: 'OK',
-          data: `Successfully added a new person! '${userdata}'`,
+          data: `Successfully added a new person! '${result}'`,
         });
       }
     });
@@ -111,17 +111,66 @@ const deletePerson = (req, res) => {
         },
       });
     } else {
-      PersonService.deleteOnePerson(id).then((userdata) => {
-        if (userdata === null || userdata === undefined) {
+      PersonService.deleteOnePerson(id).then((result) => {
+        if (result === null || result === undefined) {
           res.status(201).send({ status: 'FAILED', data: 'User not found!' });
         } else {
           res.status(201).send({
             status: 'OK',
-            data: `id: ${userdata._id} successfully deleted!`,
+            data: `id: ${result._id} successfully deleted!`,
           });
         }
       });
     }
+  } catch (error) {
+    res
+      .status(error?.status || 500)
+      .send({ status: 'FAILED', data: { error: error?.message || error } });
+  }
+};
+
+const updatePerson = (req, res) => {
+  const { body } = req;
+  if (
+    !body._id ||
+    !body.phonenum ||
+    !body.fbid ||
+    !body.name ||
+    !body.surname ||
+    !body.sex
+  ) {
+    res.status(400).send({
+      status: 'FAILED',
+      data: {
+        error:
+          "One of the following keys is missing or is empty in request body: 'phonenum', 'fbid', 'name', 'surname', 'sex'",
+      },
+    });
+  }
+
+  const personData = {
+    _id: body._id,
+    phonenum: body.phonenum,
+    fbid: body.fbid,
+    name: body.name,
+    surname: body.surname,
+    sex: body.sex,
+    extra: body.extra,
+  };
+
+  try {
+    PersonService.updateOnePerson(personData).then((result) => {
+      if (result === null || result === undefined) {
+        res
+          .status(201)
+          .send({ status: 'FAILED', data: 'User could not be updated!' });
+      } else {
+        res.status(201).send({
+          status: 'OK',
+          data: `${result.matchedCount} user matched, updated successfully.`,
+        });
+      }
+    });
   } catch (error) {
     res
       .status(error?.status || 500)
@@ -134,4 +183,5 @@ module.exports = {
   findByPhone,
   addPerson,
   deletePerson,
+  updatePerson,
 };

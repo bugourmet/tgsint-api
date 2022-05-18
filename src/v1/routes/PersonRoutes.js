@@ -14,4 +14,7 @@ router.post('/add/', PersonController.addPerson);
 //Delete a person from the DB
 router.delete('/delete/', PersonController.deletePerson);
 
+//Update a person from the DB
+router.patch('/update/', PersonController.updatePerson);
+
 module.exports = router;

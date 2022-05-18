@@ -1,4 +1,5 @@
 const Person = require('../models/Person.js');
+var ObjectId = require('mongodb').ObjectId;
 
 async function getByPhone(number) {
   try {
@@ -39,9 +40,31 @@ async function deleteOnePerson(personID) {
   }
 }
 
+async function updateOnePerson(data) {
+  try {
+    const updateData = {
+      $set: {
+        _id: data._id,
+        phonenum: data.phonenum,
+        fbid: data.fbid,
+        name: data.name,
+        surname: data.surname,
+        sex: data.sex,
+        extra: data.extra,
+      },
+    };
+    const filter = { _id: ObjectId(data._id) };
+    const UpdatedPerson = await Person.updateOne(filter, updateData);
+    return UpdatedPerson;
+  } catch (error) {
+    throw error;
+  }
+}
+
 module.exports = {
   getByName,
   getByPhone,
   addOnePerson,
   deleteOnePerson,
+  updateOnePerson,
 };

@@ -26,6 +26,20 @@ content-type: application/json
 }
 
 
+###
+PATCH http://localhost:5000/api/v1/person/update/ HTTP/1.1
+content-type: application/json
+
+{
+    "_id": "622345623dc...",
+    "phonenum": "1234567890",
+    "fbid": "1234567890",
+    "name": "Name",
+    "surname": "Surname",
+    "sex": "male",
+    "extra": "extra info about the person"
+}
+
 
 #-----CAR LOOKUP-----#
 
@@ -65,3 +79,7 @@ GET http://localhost:5000/api/v1/nmap/quickscan?target=google.com HTTP/1.1
 
 #### WHOIS lookup #####
 GET http://localhost:5000/api/v1/whois?domain=google.com HTTP/1.1
+
+
+#### Subdomain scan [!] slow scan most of the time #####
+GET http://localhost:5000/api/v1/nmap/subdomains?domain=podrumibestije.ltd HTTP/1.1
