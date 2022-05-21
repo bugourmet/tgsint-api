@@ -82,4 +82,4 @@ GET http://localhost:5000/api/v1/whois?domain=google.com HTTP/1.1
 
 
 #### Subdomain scan [!] slow scan most of the time #####
-GET http://localhost:5000/api/v1/nmap/subdomains?domain=podrumibestije.ltd HTTP/1.1
+GET http://localhost:5000/api/v1/nmap/subdomains?domain=google.com HTTP/1.1
