@@ -47,7 +47,6 @@ content-type: application/json
 ### PLATES LOOKUP (HR) ###
 GET http://localhost:5000/api/v1/carlookup/hr?plates=ZGXXXXXX HTTP/1.1
 
-
 ### PLATES LOOKUP (BIH) ###
 GET http://localhost:5000/api/v1/carlookup/bih?plates=E94-X-XXX HTTP/1.1
 
@@ -79,7 +78,6 @@ GET http://localhost:5000/api/v1/nmap/quickscan?target=google.com HTTP/1.1
 
 #### WHOIS lookup #####
 GET http://localhost:5000/api/v1/whois?domain=google.com HTTP/1.1
-
 
 #### Subdomain scan [!] slow scan most of the time #####
 GET http://localhost:5000/api/v1/nmap/subdomains?domain=google.com HTTP/1.1

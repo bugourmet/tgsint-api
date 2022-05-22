@@ -1,8 +1,17 @@
 04/29/2022
-
 - removed quick nmap scan
 - replaced node-nmap package with custom nmap commands
 
 5/13/2022
-
 - major server rework and improvements
+
+5/16/2022
+- subdomain scan & minor improvements
+
+5/19/2022
+- added person patch
+- minor changes and code formatting
+
+5/23/2022
+- added api rate limiting
+- renamed controllers

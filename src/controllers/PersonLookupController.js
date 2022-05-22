@@ -1,4 +1,4 @@
-const PersonService = require('../services/PersonService');
+const PersonService = require('../services/PersonLookupService');
 
 const findByName = (req, res) => {
   try {

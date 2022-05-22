@@ -4,6 +4,7 @@ const cors = require('cors');
 const helmet = require('helmet');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
+const rateLimit = require('express-rate-limit');
 const app = express();
 require('dotenv/config');
 
@@ -18,10 +19,28 @@ app.use(helmet());
 app.use(morgan('combined'));
 app.use(bodyParser.json());
 
-app.use('/api/v1/person/', PersonRouter);
-app.use('/api/v1/carlookup/', CarLookUpRouter);
-app.use('/api/v1/nmap/', NmapRouter);
-app.use('/api/v1/whois/', WhoisRouter);
+// 5req/min
+const apiLimiter = rateLimit({
+  windowMs: 1 * 60 * 1000,
+  max: 5,
+  message: { status: 'FAILED', data: 'Too Many Requests!' },
+  standardHeaders: true,
+  statusCode: 429,
+});
+
+// 10req/min
+const lookupLimiter = rateLimit({
+  windowMs: 1 * 60 * 1000,
+  max: 10,
+  message: { status: 'FAILED', data: 'Too Many Requests!' },
+  standardHeaders: true,
+  statusCode: 429,
+});
+
+app.use('/api/v1/person/', lookupLimiter, PersonRouter);
+app.use('/api/v1/carlookup/', lookupLimiter, CarLookUpRouter);
+app.use('/api/v1/nmap/', apiLimiter, NmapRouter);
+app.use('/api/v1/whois/', apiLimiter, WhoisRouter);
 
 //connect to the DB
 mongoose

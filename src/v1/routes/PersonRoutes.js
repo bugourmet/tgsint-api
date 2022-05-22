@@ -1,5 +1,5 @@
 const express = require('express');
-const PersonController = require('../../controllers/PersonController');
+const PersonController = require('../../controllers/PersonLookupController');
 const router = express.Router();
 
 //Find a person by phone number

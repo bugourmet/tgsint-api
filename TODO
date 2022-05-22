@@ -1,4 +1,3 @@
 - improve error handling & validation
 - implement data caching for performance improvements
 - NMAP improvements & more commands
-- implement api rate limiting (429)
