@@ -1,4 +1,4 @@
-const whois = require('whoiser');
+import whois from 'whoiser';
 
 async function getDomainInfo(domain) {
   try {
@@ -14,6 +14,4 @@ async function getDomainInfo(domain) {
   }
 }
 
-module.exports = {
-  getDomainInfo,
-};
+export default getDomainInfo;

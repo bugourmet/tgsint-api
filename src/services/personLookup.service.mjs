@@ -1,9 +1,9 @@
-const Person = require('../models/Person.js');
-var ObjectId = require('mongodb').ObjectId;
+import ObjectId from 'mongoose';
+import person from '../models/person.mjs';
 
 async function getByPhone(number) {
   try {
-    const userdata = await Person.find({ phonenum: number });
+    const userdata = await person.find({ phonenum: number });
     return userdata;
   } catch (error) {
     throw error;
@@ -12,7 +12,7 @@ async function getByPhone(number) {
 
 async function getByName(name, surname) {
   try {
-    const userdata = await Person.find({
+    const userdata = await person.find({
       name: { $regex: name, $options: 'i' },
       surname: { $regex: surname, $options: 'i' },
     });
@@ -22,25 +22,25 @@ async function getByName(name, surname) {
   }
 }
 
-async function addOnePerson(data) {
+async function add(data) {
   try {
-    const newPerson = await Person(data).save();
+    const newPerson = await person(data).save();
     return newPerson;
   } catch (error) {
     throw error;
   }
 }
 
-async function deleteOnePerson(personID) {
+async function remove(personID) {
   try {
-    const DeletedPerson = await Person.findByIdAndDelete(personID);
+    const DeletedPerson = await person.findByIdAndDelete(personID);
     return DeletedPerson;
   } catch (error) {
     throw error;
   }
 }
 
-async function updateOnePerson(data) {
+async function update(data) {
   try {
     const updateData = {
       $set: {
@@ -54,17 +54,17 @@ async function updateOnePerson(data) {
       },
     };
     const filter = { _id: ObjectId(data._id) };
-    const UpdatedPerson = await Person.updateOne(filter, updateData);
+    const UpdatedPerson = await person.updateOne(filter, updateData);
     return UpdatedPerson;
   } catch (error) {
     throw error;
   }
 }
 
-module.exports = {
+export default {
   getByName,
   getByPhone,
-  addOnePerson,
-  deleteOnePerson,
-  updateOnePerson,
+  add,
+  remove,
+  update,
 };

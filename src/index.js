@@ -1,17 +1,18 @@
-const express = require('express');
-const mongoose = require('mongoose');
-const cors = require('cors');
-const helmet = require('helmet');
-const morgan = require('morgan');
-const bodyParser = require('body-parser');
-const rateLimit = require('express-rate-limit');
-const app = express();
-require('dotenv/config');
+import express from 'express';
+import mongoose from 'mongoose';
+import cors from 'cors';
+import helmet from 'helmet';
+import morgan from 'morgan';
+import bodyParser from 'body-parser';
+import rateLimit from 'express-rate-limit';
+import 'dotenv/config';
 
-const PersonRouter = require('./v1/routes/PersonRoutes');
-const CarLookUpRouter = require('./v1/routes/CarLookUpRoutes');
-const NmapRouter = require('./v1/routes/NmapRoutes');
-const WhoisRouter = require('./v1/routes/WhoisRoute');
+import PersonRouter from './routes/v1/person.routes.mjs';
+import CarLookUpRouter from './routes/v1/carLookUp.routes.mjs';
+import NmapRouter from './routes/v1/nmap.routes.mjs';
+import WhoisRouter from './routes/v1/whois.routes.mjs';
+
+const app = express();
 
 //middleware
 app.use(cors());

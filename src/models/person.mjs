@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 const PersonSchema = mongoose.Schema({
   phonenum: {
@@ -27,4 +27,4 @@ const PersonSchema = mongoose.Schema({
   },
 });
 
-module.exports = mongoose.model('Persons', PersonSchema);
+export default mongoose.model('Persons', PersonSchema);

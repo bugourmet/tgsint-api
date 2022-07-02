@@ -1,10 +1,10 @@
-const WhoisService = require('../services/WhoisService');
+import whoisService from '../../services/whois.service.mjs';
 
-const whoisQuery = (req, res) => {
+const whoisQuery = async (req, res) => {
   try {
     const { domain } = req.query;
     if (!domain) {
-      res.status(400).send({
+      res.status(400).json({
         status: 'FAILED',
         data: {
           error:
@@ -12,15 +12,13 @@ const whoisQuery = (req, res) => {
         },
       });
     } else {
-      WhoisService.getDomainInfo(domain).then((result) => res.send(result));
+      whoisService.getDomainInfo(domain).then((result) => res.json(result));
     }
   } catch (error) {
     res
       .status(error?.status || 500)
-      .send({ status: 'FAILED', data: { error: error?.message || error } });
+      .json({ status: 'FAILED', data: { error: error?.message || error } });
   }
 };
 
-module.exports = {
-  whoisQuery,
-};
+export default whoisQuery;

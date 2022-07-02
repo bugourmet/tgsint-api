@@ -1,4 +1,4 @@
-const axios = require('axios');
+import axios from 'axios';
 
 const hrCheck = (plates) => {
   try {
@@ -65,7 +65,7 @@ const vinCheck = (vin, month) => {
   }
 };
 
-module.exports = {
+export default {
   hrCheck,
   bihCheck,
   vinCheck,

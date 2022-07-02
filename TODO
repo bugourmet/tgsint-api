@@ -1,3 +1,7 @@
-- improve error handling & validation
+- improve error handling 
+- JOI data validation
 - implement data caching for performance improvements
 - NMAP improvements & more commands
+- check nmap privilege issues on UNIX
+- username lookup for popular services
+- google dorking for phone numbers & HLR
