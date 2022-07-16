@@ -15,3 +15,9 @@
 5/23/2022
 - added api rate limiting
 - renamed controllers
+
+7/02/2022
+- migrated from CommonJS to ESM
+
+07/16/2022
+- updated packages
