@@ -7,14 +7,13 @@ import bodyParser from 'body-parser';
 import rateLimit from 'express-rate-limit';
 import 'dotenv/config';
 
-import PersonRouter from './routes/v1/person.routes.mjs';
-import CarLookUpRouter from './routes/v1/carLookUp.routes.mjs';
-import NmapRouter from './routes/v1/nmap.routes.mjs';
-import WhoisRouter from './routes/v1/whois.routes.mjs';
+import PersonRouter from './routes/v1/personRoutes.mjs';
+import CarLookUpRouter from './routes/v1/carLookUpRoutes.mjs';
+import NmapRouter from './routes/v1/nmapRoutes.mjs';
+import WhoisRouter from './routes/v1/whoisRoutes.mjs';
 
 const app = express();
 
-//middleware
 app.use(cors());
 app.use(helmet());
 app.use(morgan('combined'));
@@ -29,10 +28,10 @@ const apiLimiter = rateLimit({
   statusCode: 429,
 });
 
-// 10req/min
+// 30req/min
 const lookupLimiter = rateLimit({
   windowMs: 1 * 60 * 1000,
-  max: 10,
+  max: 30,
   message: { status: 'FAILED', data: 'Too Many Requests!' },
   standardHeaders: true,
   statusCode: 429,
@@ -50,7 +49,7 @@ mongoose
   })
   .catch((error) => console.log(error));
 
-app.listen(process.env.PORT, function (err) {
+app.listen(process.env.PORT || 5000, function (err) {
   if (err) console.log(err);
   console.log('Listening on port: ' + process.env.PORT);
 });
