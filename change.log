@@ -26,3 +26,4 @@
 - joi data validation
 - renamed routes
 - increased lookup rate limiting
+- controller & services updates
