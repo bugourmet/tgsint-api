@@ -1,17 +1,21 @@
 import whois from 'whoiser';
+import constants from '../utils/const.mjs';
 
 async function getDomainInfo(domain) {
   try {
-    let domainInfo = await whois(domain);
-    let result = { status: 'OK', data: domainInfo };
+    if (!domain) {
+      throw new Error(constants.errors.NO_DOMAIN);
+    }
+    const domainInfo = await whois(domain);
+    const result = { status: 'OK', data: domainInfo };
     return result;
   } catch (error) {
-    let result = {
-      status: 'FAILED',
-      data: { error: `TLD '${domain}' not found!` || error },
-    };
-    return result;
+    console.log(error);
   }
 }
 
-export default getDomainInfo;
+export default {
+  getDomainInfo,
+};
+
+// TODO error handling and test with invalid TLD's

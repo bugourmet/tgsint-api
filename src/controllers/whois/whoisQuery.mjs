@@ -1,23 +1,22 @@
 import whoisService from '../../services/whois.service.mjs';
+import constants from '../../utils/const.mjs';
 
 const whoisQuery = async (req, res) => {
   try {
     const { domain } = req.query;
-    if (!domain) {
-      res.status(400).json({
-        status: 'FAILED',
-        data: {
-          error:
-            "One of the following keys is missing or is empty in request: 'domain'",
-        },
-      });
-    } else {
-      whoisService.getDomainInfo(domain).then((result) => res.json(result));
-    }
+    whoisService.getDomainInfo(domain).then((result) => res.json(result));
   } catch (error) {
-    res
-      .status(error?.status || 500)
-      .json({ status: 'FAILED', data: { error: error?.message || error } });
+    switch (error.message) {
+      case constants.errors.NO_DOMAIN: {
+        res.status(400).json({ data: 'Missing target domain.' });
+        break;
+      }
+      default: {
+        console.log(error);
+        res.status(400).json({ data: 'Something went wrong.' });
+        break;
+      }
+    }
   }
 };
 

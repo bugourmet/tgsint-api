@@ -1,31 +1,33 @@
 import execFile from 'child_process';
 const execute = execFile.execFile;
+import constants from '../../utils/const.mjs';
+const command = `nmap`;
 
-const intenseScan = async (req, res) => {
+const intenseUDP = (req, res) => {
   try {
     const { target } = req.query;
-    if (!target) {
-      return res.json({
-        status: 'FAILED',
-        data: { error: 'Target not specified.' },
-      });
-    } else {
-      args = ['-T4', '-A', '-v', target];
-      execute(command, args, (error, output) => {
-        if (error) {
-          return res.json({
-            status: 'FAILED',
-            data: { error: error?.message || error },
-          });
-        }
-        return res.status(201).json({ status: 'OK', data: output });
-      });
-    }
+    const args = ['-T4', '-A', '-v', target];
+    execute(command, args, (error, output) => {
+      if (error) {
+        throw new Error(constants.errors.SCAN_ERROR);
+      }
+      return res.status(201).send({ status: 'OK', data: output });
+    });
   } catch (error) {
-    return res
-      .status(error?.status || 500)
-      .json({ status: 'FAILED', data: { error: error?.message || error } });
+    switch (error.message) {
+      case constants.errors.SCAN_ERROR: {
+        res
+          .status(400)
+          .json({ data: 'Something went wrong while scanning the target.' });
+        break;
+      }
+      default: {
+        res.status(400).json({ data: 'Something went wrong.' });
+        console.log(error);
+        break;
+      }
+    }
   }
 };
 
-export default intenseScan;
+export default intenseUDP;
