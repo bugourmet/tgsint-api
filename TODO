@@ -1,6 +1,6 @@
-- implement data caching for performance improvements ?
 - person CRUD implementation via TG ?
 - NMAP improvements & more commands ( queued scans etc.)
-- check nmap privilege issues on UNIX
+- check for nmap privilege issues on UNIX
 - username lookup for popular services
 - google dorking for phone numbers & HLR
+- email address lookup

@@ -21,6 +21,10 @@ const PersonSchema = mongoose.Schema({
     type: String,
     required: false,
   },
+  location: {
+    type: String,
+    required: false,
+  },
   extra: {
     type: String,
     required: false,

@@ -27,3 +27,6 @@
 - renamed routes
 - increased lookup rate limiting
 - controller & services updates
+
+07/31/2022
+- person model update
