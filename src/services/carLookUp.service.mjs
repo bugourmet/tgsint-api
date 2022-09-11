@@ -1,12 +1,12 @@
 import axios from 'axios';
 import constants from '../utils/const.mjs';
 
-const hrCheck = (plates) => {
+const hrCheck = async (plates) => {
   if (!plates) {
     throw new Error(constants.errors.NO_PLATES);
   }
 
-  const result = axios.post(
+  const result = await axios.post(
     'https://api.laqo.hr/webshop/ace/api/v1/car/details',
     {
       plateNumber: plates,
@@ -15,7 +15,7 @@ const hrCheck = (plates) => {
   return result;
 };
 
-const bihCheck = (plates) => {
+const bihCheck = async (plates) => {
   if (!plates) {
     throw new Error(constants.errors.NO_PLATES);
   }
@@ -26,7 +26,7 @@ const bihCheck = (plates) => {
   let year = date.getFullYear();
   let fullDate = `${day}.${month}.${year}`;
 
-  const result = axios.post(
+  const result = await axios.post(
     'https://www.bzkbih.ba/ba/stream.php',
     new URLSearchParams({
       searchRegNr: plates,
@@ -49,8 +49,8 @@ const bihCheck = (plates) => {
   return result;
 };
 
-const vinCheck = (vin, month) => {
-  const result = axios.post(
+const vinCheck = async (vin, month) => {
+  const result = await axios.post(
     'https://www.cvh.hr/Umbraco/Surface/TabsSurface/mot',
     new URLSearchParams({
       VIN: vin,

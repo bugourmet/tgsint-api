@@ -5,7 +5,7 @@ const hrLookUp = async (req, res) => {
   try {
     const { plates } = req.query;
     carLookUpService
-      .hrCheck(plates)
+      .hrCheck(plates.toUpperCase())
       .then(function (response) {
         res.status(201).json({ status: 'OK', data: response.data });
       })
