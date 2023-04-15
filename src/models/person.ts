@@ -1,6 +1,6 @@
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
 
-const PersonSchema = mongoose.Schema({
+const PersonSchema = new mongoose.Schema({
   phonenum: {
     type: String,
     required: true,
@@ -31,4 +31,4 @@ const PersonSchema = mongoose.Schema({
   },
 });
 
-export default mongoose.model('Persons', PersonSchema);
+export default mongoose.model("Persons", PersonSchema);

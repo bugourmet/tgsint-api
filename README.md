@@ -2,13 +2,12 @@
 
 REST API for [tgsint bot](https://github.com/runtimeterrorist/tgsint-bot) written with the help of Node,Express and MongoDB.
 
-Serves: 
+Serves:
+
 - person lookup api (phone lookup or lookup by name and surname)
-- whois api
-- nmap api
 - car lookup api ( plates lookup for croatia/bosnia and VIN lookup(croatia))
 
-*subdomain enumeration is done trough [nmap hostmap-crtsh script](https://nmap.org/nsedoc/scripts/hostmap-crtsh.html).
+\*subdomain enumeration is done trough [nmap hostmap-crtsh script](https://nmap.org/nsedoc/scripts/hostmap-crtsh.html).
 
 [ ! ] Note:
 
@@ -18,21 +17,20 @@ To populate your MongoDB database check [this repo.](https://github.com/runtimet
 
 ## Installation
 
-1) Run `npm install` to install required dependencies
-2) Install nmap to your local machine and configure enviroment variables if needed
-3) Edit the .env file and add your MongoDB connection url
-
+1. Run `npm install` to install required dependencies
+2. Install nmap to your local machine and configure enviroment variables if needed
+3. Edit the .env file and add your MongoDB connection url
 
 ## Usage
 
 Start the server: `npm run dev`
 
-This [bot](https://github.com/runtimeterrorist/tgsint-bot)  queries data from this server.
+This [bot](https://github.com/runtimeterrorist/tgsint-bot) queries data from this server.
 
 ## Contributing
 
 Pull requests are welcome.
-If you have a suggestion open an issue with the tag "enhancement".  
+If you have a suggestion open an issue with the tag "enhancement".
 
 ## License
 
